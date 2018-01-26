@@ -1,0 +1,97 @@
+
+{
+  "databaseChangeLog": [
+    "changeSet": {
+      "id": "create-projects-table",
+      "author": "corey",
+      "changes": [
+        { 
+          "createTable": {
+            "tableName": "project",
+            "columns": [
+              {
+                "column": {
+                  "name": "id",
+                  "type": "bigserial",
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "project_pkey",
+                    "nullable": false,
+                  }
+                }
+              },
+              {
+                "column": {
+                  "name": "project_name",
+                  "type": "varchar(100)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "changeSet": {
+      "id": "create-work-entry-table",
+      "author": "corey",
+      "changes": [
+        { 
+          "createTable": {
+            "tableName": "work-entry",
+            "columns": [
+              {
+                "column": {
+                  "name": "id",
+                  "type": "bigserial",
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "work_entry_pkey",
+                    "nullable": false,
+                  }
+                }
+              },
+              {
+                "column": {
+                  "name": "project_id",
+                  "type": "int8",
+                  "constraints": {
+                    "nullable": false,
+                    "foreignKeyName": "fk_wrk_ent_prj",
+                    "referencedTableName": "project",
+                    "referencedColumnNames": "id"
+                  }
+                }
+              },
+              {
+                "column": {
+                  "name": "issue_num",
+                  "type": "varchar(100)",
+                  "constraints": {
+                    "nullable": false,
+                  }
+                }
+              },
+              {
+                "column": {
+                  "name": "start_time",
+                  "type": "timestamp",
+                  "constraints": {
+                    "nullable": false,
+                  }
+                }
+              },
+              {
+                "column": {
+                  "name": "end_time",
+                  "type": "timestamp"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
