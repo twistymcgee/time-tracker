@@ -11,19 +11,20 @@ import net.moshr.timetracker.tables.PrintableTable;
 @Service
 public class PrinterService {
 
-	public void printTable(PrintableTable table) {
-		
-		System.out.println(StringUtils.repeat("=", table.getWidth()));
-		printHeaderRow(table);
-		System.out.println(StringUtils.repeat("-", table.getWidth()));
+	public String printTable(PrintableTable table) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(StringUtils.repeat("=", table.getWidth())).append(System.lineSeparator());
+		sb.append(printHeaderRow(table));
+		sb.append(StringUtils.repeat("-", table.getWidth())).append(System.lineSeparator());
 		for (Map<String, String> dataRow : table.getData()) {
-			printDataRow(table, dataRow);
+			sb.append(printDataRow(table, dataRow));
 		}
-		System.out.println(StringUtils.repeat("=", table.getWidth()));
-		
+		sb.append(StringUtils.repeat("=", table.getWidth())).append(System.lineSeparator());
+		return sb.toString();
 	}
 
-	private void printDataRow(PrintableTable table, Map<String, String> dataRow) {
+	private String printDataRow(PrintableTable table, Map<String, String> dataRow) {
+		StringBuilder sb = new StringBuilder();
 		for (PrintableColumn column : table.getColumns()) {
 			String data = dataRow.get(column.getTitle());
 			if (data.length() > (column.getWidth() - 2)) {
@@ -32,12 +33,14 @@ public class PrinterService {
 			data = StringUtils.rightPad(data, (column.getWidth() - 1));
 			data = " " + data;
 			String columnOutput = String.format("|%s", data);
-			System.out.print(columnOutput);
+			sb.append(columnOutput);
 		}
-		System.out.println("|");
+		sb.append("|").append(System.lineSeparator());
+		return sb.toString();
 	}
 
-	private void printHeaderRow(PrintableTable table) {
+	private String printHeaderRow(PrintableTable table) {
+		StringBuilder sb = new StringBuilder();
 		for (PrintableColumn column : table.getColumns()) {
 			String title = column.getTitle();
 			if (column.getTitle().length() > column.getWidth()) {
@@ -45,9 +48,10 @@ public class PrinterService {
 			}
 			title = StringUtils.center(title, column.getWidth());
 			String columnOutput = String.format("|%s", title);
-			System.out.print(columnOutput);
+			sb.append(columnOutput);
 		}
-		System.out.println("|");
+		sb.append("|").append(System.lineSeparator());
+		return sb.toString();
 	}
-	
+
 }

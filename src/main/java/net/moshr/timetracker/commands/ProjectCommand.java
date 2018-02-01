@@ -1,16 +1,32 @@
 package net.moshr.timetracker.commands;
 
-import com.beust.jcommander.Parameter;
-import com.beust.jcommander.Parameters;
+import org.jline.utils.AttributedString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
 
-import lombok.Getter;
-import lombok.Setter;
+import net.moshr.timetracker.entities.Project;
+import net.moshr.timetracker.services.ProjectService;
 
-@Parameters(commandDescription = "Manage projects")
-public class ProjectCommand {
+@ShellComponent
+public class ProjectCommand extends TimeTrackerCommand {
 
-	@Parameter(names = "list", description = "List projects")
-	@Getter @Setter
-	private Boolean list = false;
-	
+	@Autowired
+	private ProjectService projectService;
+
+	@ShellMethod(key = "listprojects", value = "List projects")
+	public AttributedString listProjects() {
+		return outputResult(projectService.listProjects());
+	}
+
+	@ShellMethod(key = "addproject", value = "Add a project")
+	public AttributedString addProject(String projectName) {
+		Project project = projectService.addProject(projectName);
+		StringBuilder sb = new StringBuilder();
+		sb.append("New project added:").append(System.lineSeparator());
+		sb.append("ID: ").append(project.getId()).append(System.lineSeparator());
+		sb.append("Name: ").append(project.getProjectName()).append(System.lineSeparator());
+		return outputResult(sb.toString());
+	}
+
 }

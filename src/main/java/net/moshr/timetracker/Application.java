@@ -1,41 +1,24 @@
 package net.moshr.timetracker;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStyle;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.beust.jcommander.JCommander;
+import org.springframework.context.annotation.Bean;
+import org.springframework.shell.jline.PromptProvider;
 
 import lombok.extern.slf4j.Slf4j;
-import net.moshr.timetracker.commands.ProjectCommand;
-import net.moshr.timetracker.services.ProjectService;
 
 @Slf4j
 @SpringBootApplication
-public class Application implements CommandLineRunner {
-	
-	@Autowired
-	private ProjectService projectService;
+public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		ProjectCommand projectCommand = new ProjectCommand();
-		JCommander jc = JCommander.newBuilder()
-			    .addCommand("project", projectCommand)
-			    .build();
-		jc.parse(args);
-		
-		String parsedCommand = jc.getParsedCommand();
-		if ("project".equals(parsedCommand)) {
-			log.info("Running project code");
-			projectService.processProjectCommand(projectCommand);
-		} else {
-			log.error("Unknown command");
-		}
+	@Bean
+	public PromptProvider myPromptProvider() {
+		return () -> new AttributedString("time-tracker:> ", AttributedStyle.BOLD.foreground(AttributedStyle.CYAN));
 	}
 }
