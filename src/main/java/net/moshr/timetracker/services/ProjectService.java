@@ -1,19 +1,17 @@
 package net.moshr.timetracker.services;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import lombok.extern.slf4j.Slf4j;
 import net.moshr.timetracker.entities.Project;
 import net.moshr.timetracker.repositories.ProjectRepository;
 import net.moshr.timetracker.tables.PrintableColumn;
 import net.moshr.timetracker.tables.PrintableTable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -53,6 +51,10 @@ public class ProjectService {
 		List<String> results = projectRepository.findByNameStartsWith(searchText);
 		log.info("Results size: {}", results.size());
 		return results;
+	}
+
+	public Project findByName(String name) {
+		return projectRepository.findByProjectName(name);
 	}
 
 }

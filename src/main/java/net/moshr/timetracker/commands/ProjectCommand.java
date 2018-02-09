@@ -1,12 +1,11 @@
 package net.moshr.timetracker.commands;
 
+import net.moshr.timetracker.entities.Project;
+import net.moshr.timetracker.services.ProjectService;
 import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-
-import net.moshr.timetracker.entities.Project;
-import net.moshr.timetracker.services.ProjectService;
 
 @ShellComponent
 public class ProjectCommand extends TimeTrackerCommand {

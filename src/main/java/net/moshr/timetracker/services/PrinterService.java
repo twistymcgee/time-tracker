@@ -1,12 +1,11 @@
 package net.moshr.timetracker.services;
 
-import java.util.Map;
-
+import net.moshr.timetracker.tables.PrintableColumn;
+import net.moshr.timetracker.tables.PrintableTable;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import net.moshr.timetracker.tables.PrintableColumn;
-import net.moshr.timetracker.tables.PrintableTable;
+import java.util.Map;
 
 @Service
 public class PrinterService {
