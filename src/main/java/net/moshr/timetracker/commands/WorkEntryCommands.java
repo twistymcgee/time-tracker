@@ -13,10 +13,11 @@ public class WorkEntryCommands extends TimeTrackerCommand {
 
 	@ShellMethod(key = "addworkentry", value = "Add a work entry")
 	public AttributedString addWorkEntry(@ShellOption(valueProvider = ProjectsProvider.class) Project project,
-										 LocalDateTime start) {
+										 LocalDateTime start,
+										 @ShellOption(defaultValue = ShellOption.NULL) LocalDateTime end) {
 
-		return outputResult(String.format("Adding work entry for %d (%s) start %s", project.getId(),
-                project.getProjectName(), start));
+		return outputResult(String.format("Adding work entry for %d (%s) start %s end %s", project.getId(),
+                project.getProjectName(), start, (end == null) ? "Empty" : end));
 	}
 
 }
