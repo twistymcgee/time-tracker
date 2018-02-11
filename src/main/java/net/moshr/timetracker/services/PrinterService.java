@@ -1,5 +1,6 @@
 package net.moshr.timetracker.services;
 
+import net.moshr.timetracker.entities.WorkEntry;
 import net.moshr.timetracker.tables.PrintableColumn;
 import net.moshr.timetracker.tables.PrintableTable;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,21 @@ public class PrinterService {
 		}
 		sb.append("|").append(System.lineSeparator());
 		return sb.toString();
+	}
+
+	public String printWorkEntry(WorkEntry workEntry, String message) {
+        StringBuilder sb = new StringBuilder();
+        if (message != null) {
+            sb.append(message).append(System.lineSeparator());
+        }
+        sb.append("ID: ").append(workEntry.getId()).append(System.lineSeparator());
+        sb.append("Project: ").append(workEntry.getProject().getProjectName()).append(System.lineSeparator());
+        sb.append("Issue Num: ").append(workEntry.getIssueNum()).append(System.lineSeparator());
+        sb.append("Start: ").append(workEntry.getStart()).append(System.lineSeparator());
+        if (workEntry.getEnd() != null) {
+            sb.append("End: ").append(workEntry.getEnd()).append(System.lineSeparator());
+        }
+        return sb.toString();
 	}
 
 }
