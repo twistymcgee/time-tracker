@@ -57,4 +57,8 @@ public class ProjectService {
 		return projectRepository.findByProjectName(name);
 	}
 
+	public List<Project> getProjects() {
+		return projectRepository.findAll();
+	}
+
 }
