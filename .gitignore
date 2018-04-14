@@ -25,3 +25,5 @@ nbdist/
 tracker.log*
 .mvn
 spring-shell.log
+mvnw
+mvnw.cmd
